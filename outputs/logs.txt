@@ -1,0 +1,16 @@
+[RSA-2048] ✅ Claves privada y pública generadas
+[SISTEMA]  💬 Usuario 'ariana' creado.
+[RSA-2048] ✅ Claves privada y pública generadas
+[SISTEMA]  💬 Usuario 'bob' creado.
+[AES-128]  ✅ Clave generada:  b'_\x96R\xeb\xfe\xe8\xf7G\x9d\x80\x0f\xf8\xfd\xe1\x19\x17'
+[RSA-2048] ✅ Datos cifrados para usuario 'ariana'
+[RSA-2048] ✅ Datos cifrados para usuario 'bob'
+[RSA-2048] ✅ Claves privada y pública generadas
+[SISTEMA]  💬 Usuario 'prueba_usuario1' creado.
+[AES-128]  ✅ Clave generada:  b'0ep<\xb3\x98H\x90,G\xca\xe8\xa0\xaf\x9d\x9c'
+[RSA-2048] ✅ Datos cifrados para usuario 'prueba_usuario1'
+[RSA-2048] ✅ Datos cifrados para usuario 'bob'
+[AES-128-GCM] ✅ Mensaje cifrado:  b'jr\xdf!/\xfcNc\x1ds5\x16,D\xec\xb1\xb9\x9dH\xa2\xed'
+[SISTEMA]     💬 Mensaje enviado de 'prueba_usuario1' a 'bob'.
+[AES-128-GCM] ✅ Mensaje cifrado:  b'9P\x8f5Z\xef\xd3\xf3\xf6\x16-,j\xebz\x19\x19\xed\x1d\xed~\xbb\xb5\xeb\x00q1\x18r\xb8\xe2\xf5K\xb5q\x03\xdd\x9a\x9d\xc5\x84Y\xa8w+\x86\x16\xfe\x1e\x12!\x83\x05'
+[SISTEMA]     💬 Mensaje enviado de 'bob' a 'prueba_usuario1'.
