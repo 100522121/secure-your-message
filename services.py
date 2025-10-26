@@ -184,7 +184,7 @@ def read_messages(reader: str, user1: str, user2: str):
     chat_id = get_chat_id(user1, user2)
     aes_key = get_chat_key_for_user(reader, user1, user2)
     if aes_key is None:
-        return print(f"[DEBUG] ❌ '{reader}' no posee la clave AES para este chat.")
+        return print(f"[ERROR] ❌ '{reader}' no posee la clave AES para este chat.")
 
     conn = sqlite3.connect(DB_PATH)
     rows = conn.execute("""

@@ -30,6 +30,9 @@ if __name__ == "__main__":
 
     while True:
         msg = input(f"{username}: ").strip()
+        if not msg:                                 # Manejo de mensaje vacío
+            print("Por favor, escribe algo antes de enviar.") 
+            continue
         if msg.lower() == "salir":
             print("Cerrando chat. ¡Hasta pronto!")
             break

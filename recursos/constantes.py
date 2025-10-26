@@ -1,14 +1,14 @@
 """ Definición de valores constantes utilizados en el programa."""
 
 # --------------- Valores constantes ----------------
-# ---------------------------------------------------
-DB_PATH = "outputs/secure_message.db"  # Ruta a la base de datos SQLite
+
+DB_PATH = "outputs/secureyourmessage.db"  # Ruta a la base de datos SQLite
 LOGS_PATH = "outputs/logs.txt"         # Ruta al archivo de logs
 KDF_ITERATIONS =    100_000            # Número de iteraciones para PBKDF2
 SALT_SIZE =         32                 # Tamaño de la sal en bytes
 
 # -------------- Funciones auxiliares ---------------
-# ---------------------------------------------------
+
 def print_and_log(*args, **kwargs):
     """
     Función print que guarda en logs.txt las líneas de depuración.

@@ -12,7 +12,7 @@ from recursos.constantes import KDF_ITERATIONS, SALT_SIZE, print_and_log, _to_by
 
 # ------------ Autenticación del usuario ------------
 # Algoritmo: SHA-256 + KDF (Key Derivation Function)
-# ---------------------------------------------------
+
 def hash_password(password: str):
     """
     Genera una sal aleatoria y deriva una clave a partir de la contraseña.
@@ -43,7 +43,7 @@ def verify_password(stored_salt, stored_key, password_attempt: str) -> bool:
 
 # ---------------- Cifrado simétrico ----------------
 # Algoritmo: AES-128, modo de operación: GCM
-# ---------------------------------------------------
+
 def generate_aes_key() -> bytes:
     """
     Genera una clave AES-128 aleatoria.
@@ -79,7 +79,7 @@ def decrypt_message(key: bytes, enc: dict) -> str:
 
 # --------------- Cifrado asimétrico ----------------
 # Algoritmo: RSA-2048, padding: OAEP
-# ---------------------------------------------------
+
 def generate_rsa_keypair():
     """
     Genera un par de claves RSA (privada y pública).
