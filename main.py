@@ -1,52 +1,85 @@
-""" Aplicación de chat seguro entre el usuario y el bot 'Bob'."""
+""" Módulo de aplicación de chat seguro entre el usuario y el bot 'Bob'. """
 
 from database import init_db
-from services import add_user, user_exists, verify_login, send_message, read_messages, ensure_bot_exists, create_chat
+import pki  # Importamos el módulo unificado
+from services import (
+    add_user, user_exists, verify_login, unlock_private_key,
+    send_message, read_messages, ensure_bot_exists, create_chat
+)
 
 if __name__ == "__main__":
-    init_db()                                       # Inicializar la base de datos
-    
-    print("\n=== 💬 Chat Seguro (Bot y Tú) ===")
+    init_db()       # Inicializar base de Datos
+    pki.init_pki()  # Inicializar PKI (Crea AC1 y AC2 si no existen)
+
+    print("\n\n───────────────── SECURE YOUR MESSAGE ────────────────")
+    print("\n--- Registro o inicio ---")
+    # Menú inicial
     while True:
-        username = input("Nombre de usuario: ").strip()     
-        if username.lower() == "salir":
-            print("Cerrando programa. ¡Hasta pronto!")
-            exit(0)   
-        password = input("Contraseña: ").strip()
+        action = input("Escribe 'registrar', 'iniciar' o 'salir': ").strip().lower()
+        if action not in ("registrar", "iniciar", "salir"):
+            print("Opción no válida.")
+            continue
+        
+        if action == "salir":
+            print("\nSaliendo de la aplicación. ¡Hasta pronto!\n")
+            exit(0)
 
-        if not user_exists(username):
+        print("")
+        username = input("👋  Usuario: ").strip()
+        password = input("🔑  Contraseña: ").strip()
+
+        if action == "registrar":
+            if user_exists(username):
+                print(f"👤  El usuario '{username}' ya existe. Debes iniciar sesión.\n")
+                continue
+
+            # add_user crea las claves, guarda en BD y llama a pki.issue_certificate_for_user
             add_user(username, password)
-            break
-        else:
-            if verify_login(username, password):
-                print(f"          💬 Bienvenido/a de nuevo, {username}.")
-                break
 
+            print("Usuario creado. Ahora debes iniciar sesión.\n")
+            continue
+
+        elif action == "iniciar":
+            if not user_exists(username):
+                print(f"👤 Usuario '{username}' no existe.\n")
+                continue
+
+            # verify_login verifica password y valida la cadena de certificados
+            if verify_login(username, password):
+                unlock_private_key(username, password)
+                print(f"💬 Bienvenido/a, {username}.")
+                break
+            else:
+                print("❌ Credenciales incorrectas o error de certificado.\n")
+                continue
+
+    # Asegurar que el bot exista y tenga certificado
     ensure_bot_exists()
     create_chat(username, "bob")
 
-    print("\n--- Chat cifrado iniciado ---")
-    print("(Escribe 'salir' para terminar)\n")
-
     while True:
-        msg = input(f"{username}: ").strip()
-        if not msg:                                 # Manejo de mensaje vacío
-            print("Por favor, escribe algo antes de enviar.") 
+        print("\n\n--- Nuevo mensaje ---")
+        print("Escribe tu mensaje (o 'salir')\n")
+
+        msg = input(f"{username} (Tú): ").strip()
+
+        if not msg:
+            print("Escribe algo.")
             continue
+
         if msg.lower() == "salir":
-            print("Cerrando chat. ¡Hasta pronto!")
+            print("Cerrando chat.\n")
             break
-        # Envío del mensaje del usuario a Bob
+        
         send_message(username, "bob", msg)
 
-        # Respuestas predefinidas del bot
+        # Lógica simple del Bot
         if "hola" in msg.lower():
-            reply = f"¡Hola {username}! Soy Bob 🤖."
+            reply = f"¡Hola, {username}! Soy Bob 🤖."
         elif "como" in msg.lower() and "estas" in msg.lower():
-            reply = "Todo en orden."
+            reply = "Todo en orden, mis circuitos funcionan al 100%."
         else:
-            reply = "Interesante... sigue contándome."
+            reply = "Interesante... cuéntame más."
 
         send_message("bob", username, reply)
         read_messages(username, username, "bob")
-        print("\n------------------------------\n")
